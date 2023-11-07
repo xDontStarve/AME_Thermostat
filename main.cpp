@@ -6,6 +6,7 @@
 AnalogIn rotatoryAngleSensor(A0);
 TempSensor tempSensor(A1);
 DigitalOut led(D4);
+float offset;
 
 // main() runs in its own thread in the OS
 int main()
@@ -16,13 +17,27 @@ int main()
     while (true) {
         currentTemp= tempSensor.readTemperature();
         desiredTemp= rotatoryAngleSensor.read_u16()/1000;
-
         if(currentTemp < desiredTemp)
         {
             led = !led;
         }else {
             led = 1;
+    /*
+        //targetMin + (value - sourceMin) * (targetMax - targetMin) / (sourceMax - sourceMin);
+        desiredTemp= 5 + (desiredTemp-0) * (35 - 5) / (65 - 0); //Limit the desired temp from 5 to 35 celcius
+        printf("currentTemp: %.2fºC\ndesiredTemp:%.2fºC\n", currentTemp, desiredTemp);
+        tempDifference=desiredTemp-currentTemp;
+        if (tempDifference!=currentTemp){
+            led = !led;
+            printf("Changing temperature to match desired temperature.\n");
+            while (currentTemp < desiredTemp)
+            {
+                currentTemp+=0.25;
+                ThisThread::sleep_for(1500ms);
+            }
+    */
         }
+        
         //Funcion para escribir en el LCD
 
         ThisThread::sleep_for(1500ms);
@@ -30,3 +45,27 @@ int main()
     }
 }
 
+/*
+float offset;
+
+while(true)
+	curentTemp=read_temp();
+	desiredTemp=rotatorySensor();
+
+	currentTemp+=offset;
+	if currentTemp!=desiredTemp{
+
+		while (currentTemp!=desiredTemp){
+			if (currentTemp<desiredTemp) offset-=0.1;
+			else offset+=0.1;
+			currentTemp+=offset;
+			printf("Current temp: currentTemp");
+			thisthread::sleep(500ms);
+		}
+
+	}
+
+
+	printf("Current temp: currentTemp");
+}
+*/
