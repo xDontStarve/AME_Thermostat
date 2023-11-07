@@ -6,11 +6,12 @@
 AnalogIn rotatoryAngleSensor(A0);
 TempSensor tempSensor(A1);
 DigitalOut led(D4);
+float offset;
 
 // main() runs in its own thread in the OS
 int main()
 {
-    led=1;
+    led=0;
     float tempDifference, currentTemp, desiredTemp, tempIncrement=0;
     
     while (true) {
@@ -22,10 +23,40 @@ int main()
         printf("currentTemp: %.2fºC\ndesiredTemp:%.2fºC\n", currentTemp, desiredTemp);
         tempDifference=desiredTemp-currentTemp;
         if (tempDifference!=currentTemp){
+            led = !led;
             printf("Changing temperature to match desired temperature.\n");
+            while (currentTemp < desiredTemp)
+            {
+                currentTemp+=0.25;
+                ThisThread::sleep_for(1500ms);
+            }
         }
         ThisThread::sleep_for(1500ms);
         
     }
 }
 
+/*
+float offset;
+
+while(true)
+	curentTemp=read_temp();
+	desiredTemp=rotatorySensor();
+
+	currentTemp+=offset;
+	if currentTemp!=desiredTemp{
+
+		while (currentTemp!=desiredTemp){
+			if (currentTemp<desiredTemp) offset-=0.1;
+			else offset+=0.1;
+			currentTemp+=offset;
+			printf("Current temp: currentTemp");
+			thisthread::sleep(500ms);
+		}
+
+	}
+
+
+	printf("Current temp: currentTemp");
+}
+*/
