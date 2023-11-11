@@ -2,13 +2,32 @@
 #include "AnalogIn.h"
 #include "TempSensor.h"
 #include "Grove_LCD_RGB_Backlight.h"
+#include "THREAD"
 
 AnalogIn rotatoryAngleSensor(A0);
 TempSensor tempSensor(A1);
 DigitalOut led(D4);
+Grove_LCD_RGB_Backlight LCD(A2);
 float offset;
 
 // main() runs in its own thread in the OS
+void showMessage(float value, bool currentORdesire)
+{
+        if (currentORdesire) 
+        {
+            LCD.locate(0,0);
+            LCD.printf("Current Tem:");
+            LCD.locate(0,1);
+            LCD.printf("%d", value);
+        }else{
+            LCD.locate(0,0);
+            LCD.printf("Desire Tem:");
+            LCD.locate(0,1);
+            LCD.printf("%d", value);
+        }
+        ThisThread::sleep_for(2000ms);
+}
+
 int main()
 {
     led=0;
@@ -16,12 +35,26 @@ int main()
     
     while (true) {
         currentTemp= tempSensor.readTemperature();
+        //Write message in LCD Screen
+        showMessage(currentTemp, true);
+
         desiredTemp= rotatoryAngleSensor.read_u16()/1000;
-        if(currentTemp < desiredTemp)
-        {
+        //Write message in LCD Screen
+        showMessage(desiredTemp, true);
+        if (currentTemp < desiredTemp-1){
             led = !led;
-        }else {
+            LCD.locate(0,0);
+            LCD.printf("COLD");
+        
+        } else if (currentTemp > desiredTemp+1){
             led = 1;
+            LCD.locate(0,0);
+            LCD.printf("HEAT");
+        }else {
+            LCD.locate(0,0);
+            LCD.printf("PERFECT");
+            led = 0;
+        }
     /*
         //targetMin + (value - sourceMin) * (targetMax - targetMin) / (sourceMax - sourceMin);
         desiredTemp= 5 + (desiredTemp-0) * (35 - 5) / (65 - 0); //Limit the desired temp from 5 to 35 celcius
@@ -36,13 +69,10 @@ int main()
                 ThisThread::sleep_for(1500ms);
             }
     */
-        }
-        
-        //Funcion para escribir en el LCD
+    }
 
         ThisThread::sleep_for(1500ms);
         
-    }
 }
 
 /*
