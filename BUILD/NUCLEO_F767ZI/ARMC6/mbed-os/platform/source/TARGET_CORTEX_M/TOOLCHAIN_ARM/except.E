@@ -1,8 +1,8 @@
 # 1 ".\\mbed-os\\platform\\source\\TARGET_CORTEX_M\\TOOLCHAIN_ARM\\except.S"
 # 1 "<built-in>" 1
-# 397 "<built-in>"
+# 396 "<built-in>"
 # 1 "./BUILD/NUCLEO_F767ZI/ARMC6\\mbed_config.h" 1
-# 398 "<built-in>" 2
+# 397 "<built-in>" 2
 # 1 ".\\mbed-os\\platform\\source\\TARGET_CORTEX_M\\TOOLCHAIN_ARM\\except.S" 2
 ;
 # 30 ".\\mbed-os\\platform\\source\\TARGET_CORTEX_M\\TOOLCHAIN_ARM\\except.S"

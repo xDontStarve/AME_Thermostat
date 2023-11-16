@@ -315,4 +315,4 @@ BUILD\NUCLEO_F767ZI\ARMC6\main.o: main.cpp \
   mbed-os\platform\include\platform\Stream.h \
   mbed-os\platform\include\platform\FileLike.h \
   mbed-os\drivers\include\drivers\AnalogIn.h TempSensor.h \
-  Grove_LCD_RGB_Backlight.h
+  Grove_LCD_RGB_Backlight.h mbed-os\rtos\include\rtos\ThisThread.h

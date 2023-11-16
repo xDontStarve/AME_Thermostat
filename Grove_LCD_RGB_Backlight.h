@@ -1,7 +1,8 @@
 #include "mbed.h"
 
 // I2C addresses for LCD and RGB
-
+#define LCD_ADDRESS     (0x7c)
+#define RGB_ADDRESS     (0xc4)
 
 #define RED_REG         0x04        
 #define GREEN_REG       0x03        

@@ -49,9 +49,7 @@ void Grove_LCD_RGB_Backlight::setReg(char addr, char val)
     char data[2];
     data[0] = addr;
     data[1] = val;
-    
-    //TODO write data to set the registers//
-	i2c.write(0xc4, data, 2, false);
+    i2c.write(RGB_ADDRESS, data, 2);
 }
 
 /*This function is used to write to the LCD screen.  It takes in a string of
@@ -63,8 +61,7 @@ void Grove_LCD_RGB_Backlight::print(char *str)
     while(*str)
     {
             data[1] = *str;
-            //TODO write the function to write in the screen//
-			i2c.write(0x7c, data, 2, false);
+            i2c.write(LCD_ADDRESS, data, 2);
             str++;
             
     }
@@ -76,20 +73,17 @@ void Grove_LCD_RGB_Backlight::write(char data1)
     char data[2];
     data[0]=0x40;
     data[1]=(data1 >>4)+0x30;
-   //TODO write the function to write in the screen//
-	i2c.write(0x7c, data, 2, false);
+    i2c.write(LCD_ADDRESS,data,2);
     data[1]=(data1&0x0f)+0x30;
-    //TODO write the function to write in the screen//
-	i2c.write(0x7c, data, 2, false);
+    i2c.write(LCD_ADDRESS,data,2);  
 }
 
 void Grove_LCD_RGB_Backlight::writech(char data2)
 {
-	char data[2];
-	data[0]=0x40;
-	data[1]=data2;
-	//TODO write the function to write in the screen//
-	i2c.write(0x7c, data, 2, false); 
+ char data[2];
+ data[0]=0x40;
+ data[1]=data2;
+ i2c.write(LCD_ADDRESS,data,2);   
     
 }
 
@@ -110,8 +104,7 @@ void Grove_LCD_RGB_Backlight::locate(char col, char row)
     char data[2];
     data[0] = 0x80;
     data[1] = col;
-   //TODO write the function to write in the screen//
-   i2c.write(0x7c, data, 2, false); 
+    i2c.write(LCD_ADDRESS, data, 2);
 }
 
 /*This function sends an instruction to the LCD display using the
@@ -120,7 +113,7 @@ void Grove_LCD_RGB_Backlight::locate(char col, char row)
 void Grove_LCD_RGB_Backlight::sendCommand(char value)
 {
     char data[2] = {0x80, value};
-    i2c.write(0x7c, data, 2, false); 
+    i2c.write(LCD_ADDRESS, data, 2);
 }
 
 void Grove_LCD_RGB_Backlight::init() 

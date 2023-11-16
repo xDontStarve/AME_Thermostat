@@ -1,8 +1,8 @@
 # 1 ".\\mbed-os\\targets\\TARGET_STM\\TARGET_STM32F7\\TARGET_STM32F767xI\\TOOLCHAIN_ARM\\startup_stm32f767xx.S"
 # 1 "<built-in>" 1
-# 397 "<built-in>"
+# 396 "<built-in>"
 # 1 "./BUILD/NUCLEO_F767ZI/ARMC6\\mbed_config.h" 1
-# 398 "<built-in>" 2
+# 397 "<built-in>" 2
 # 1 ".\\mbed-os\\targets\\TARGET_STM\\TARGET_STM32F7\\TARGET_STM32F767xI\\TOOLCHAIN_ARM\\startup_stm32f767xx.S" 2
 ;*******************************************************************************
 ;* File Name : startup_stm32f767xx.s
